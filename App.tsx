@@ -1,6 +1,7 @@
 import { View, FlatList, ActivityIndicator, RefreshControl, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Card from './components/Card'
+import axios from 'axios'
 
 const App = () => {
   const [page, setPage] = useState<number>(1)
@@ -12,11 +13,11 @@ const App = () => {
   const fetchData = async (pageNum: number) => {
     try {
       setLoading(true)
-      const resp = await fetch(
+      const resp = await axios.get(
         `https://jsonplaceholder.typicode.com/posts?_page=${pageNum}&_limit=5`
       )
-      const data = await resp.json()
-      setData(prev => [...prev, ...data])
+      // const data = await resp.json()
+      setData(prev => [...prev, ...resp.data])
     } catch (error: string | null) {
       setError(error.message)
     } finally {
