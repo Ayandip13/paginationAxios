@@ -8,7 +8,6 @@ const App = () => {
   const [data, setData] = useState<any[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<null | string>(null)
-  const [onTop, setOnTop] = useState<boolean>(false)
 
   const fetchData = async (pageNum: number) => {
     try {
@@ -16,7 +15,6 @@ const App = () => {
       const resp = await axios.get(
         `https://jsonplaceholder.typicode.com/posts?_page=${pageNum}&_limit=5`
       )
-      // const data = await resp.json()
       setData(prev => [...prev, ...resp.data])
     } catch (error: string | null) {
       setError(error.message)
@@ -37,33 +35,40 @@ const App = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff', paddingVertical: 30 }}>
-      <FlatList
-        data={data}
-        ListHeaderComponent={() => (
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'center',
-              backgroundColor: '#EEEEEE'
-            }}>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: 'bold',
-                textAlign: 'center',
-                color: '#1C6EA4',
-                paddingVertical: 20
-              }}>Fetched Items</Text>
-          </View>
-        )}
-        renderItem={({ item }) => <Card id={item.id} title={item.title} body={item.body} />}
-        onEndReached={loadMore}
-        onEndReachedThreshold={0.5}
-        keyExtractor={(item, index) => index.toString()}
-        ListFooterComponent={
-          loading ? <ActivityIndicator size="large" color="#1C6EA4" /> : null
-        }
-      />
+      {
+        error ?
+          <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', color: '#468A9A' }}>{error}</Text>
+          : (
+            <FlatList
+              data={data}
+              ListHeaderComponent={() => (
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    backgroundColor: '#EEEEEE'
+                  }}>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                      color: '#1C6EA4',
+                      paddingVertical: 20
+                    }}>Fetched Items</Text>
+                </View>
+              )}
+              renderItem={({ item }) => <Card id={item.id} title={item.title} body={item.body} />}
+              onEndReached={loadMore}
+              onEndReachedThreshold={0.5}
+              keyExtractor={(item, index) => index.toString()}
+              ListFooterComponent={
+                loading ? <ActivityIndicator size="large" color="#1C6EA4" /> : null
+              }
+            />
+          )
+      }
+
     </View>
   )
 }
