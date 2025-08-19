@@ -13,21 +13,21 @@ const Card = ({ id, title, body }: CardProps) => {
   return (
     <View
       style={{
-        marginVertical: height * 0.012,   // ~1.2% of screen height
-        marginHorizontal: width * 0.05,   // ~5% of screen width
+        marginVertical: height * 0.012,
+        marginHorizontal: width * 0.05,
         backgroundColor: '#BBDCE5',
         paddingVertical: height * 0.015,
         paddingHorizontal: width * 0.06,
         elevation: 5,
-        borderRadius: width * 0.03,       // rounded corners scale with width
+        borderRadius: width * 0.03,
       }}>
       
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Text
           style={{
-            fontSize: width * 0.045,       // responsive font size
+            fontSize: width * 0.045,
             fontWeight: 'bold',
-            flexShrink: 1                  // prevents text overflow
+            flexShrink: 1
           }}
         >
           {title}
@@ -53,7 +53,7 @@ const Card = ({ id, title, body }: CardProps) => {
 
       <Text
         style={{
-          fontSize: width * 0.04,          // slightly smaller than title
+          fontSize: width * 0.04,
           fontWeight: 'bold'
         }}
       >
