@@ -1,4 +1,4 @@
-import { View, FlatList, ActivityIndicator, RefreshControl, Text } from 'react-native'
+import { View, FlatList, ActivityIndicator, RefreshControl, Text, StatusBar } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Card from './components/Card'
 import axios from 'axios'
@@ -35,6 +35,10 @@ const App = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff', paddingVertical: 30 }}>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="#EEEEEE"
+      />
       {
         error ?
           <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', color: '#468A9A' }}>{error}</Text>
