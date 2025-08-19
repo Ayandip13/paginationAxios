@@ -8,6 +8,23 @@ const App = () => {
   const [data, setData] = useState<any[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<null | string>(null)
+  const [refreshing, setRefreshing] = useState<boolean>(false)
+
+  const handleRefresh = async () => {
+    try {
+      setRefreshing(true)
+      setPage(1)  // reset page
+      const resp = await axios.get(
+        `https://jsonplaceholder.typicode.com/posts?_page=1&_limit=5`
+      )
+      setData(resp.data)  // overwrite instead of append
+    } catch (error: any) {
+      setError(error.message)
+    } finally {
+      setRefreshing(false)
+    }
+  }
+
 
   const fetchData = async (pageNum: number) => {
     try {
@@ -45,6 +62,12 @@ const App = () => {
           : (
             <FlatList
               data={data}
+              refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={handleRefresh}
+                />
+              }
               ListHeaderComponent={() => (
                 <View
                   style={{
