@@ -79,7 +79,6 @@ const App = () => {
     }
   }
 
-  // Select which data to render based on "open"
   const selectedData = open === 1 ? data : data2
   const selectedError = open === 1 ? error : error2
   const selectedLoading = open === 1 ? loading : loading2
